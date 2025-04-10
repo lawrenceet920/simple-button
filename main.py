@@ -29,9 +29,6 @@ def main():
     clock = pygame.time.Clock()
     running = True
     # On Startup
-    font = pygame.font.Font('PixelifySans-Bold.ttf', 40)
-    surf = font.render('Quit', True, config.GREEN)
-
     button_quit = {
         'length' : 200,
         'height' : 60,
@@ -39,8 +36,14 @@ def main():
         'y' : 125
     }
     button = pygame.Rect(button_quit['x'], button_quit['y'], button_quit['length'], button_quit['height'])
-    surf_rect = surf.get_rect()
-    surf_rect.center = button.center
+
+
+    font = pygame.font.Font('PixelifySans-Bold.ttf', 40)
+
+    surf = font.render('Quit', True, config.GREEN) # Make a textbox
+    surf_rect = surf.get_rect() # Draw a invisible rect over it
+    surf_rect.center = button.center # Use the rect to find the center point of the text and put it in the center of where the box was drawn
+
     while running:
         mouse_x, mouse_y = pygame.mouse.get_pos()
         running = handle_events(button)
@@ -52,7 +55,7 @@ def main():
             button_quit['color'] = (110, 110, 110)
         
         pygame.draw.rect(screen, button_quit['color'], button)
-        screen.blit(surf, surf_rect)
+        screen.blit(surf, surf_rect) # Draw the textbox 'surf' in the position 'surf_rect'
         # Limit clock to FPS & Update Screen
         pygame.display.flip()
         clock.tick(config.FPS)
